@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fast Math Game</title>
+	<link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+	<script src="./src/main.js" type="module"></script>
+	<div class="bars">
+		<div class="bar">
+			<div><a href="https://github.com/purplepentagons/fast-math-game" target="_blank">GitHub</a></div>
+			<!-- <div>Records</div> -->
+		</div>
+		<div class="bar">
+			<div class="modes">
+				<div class="mode" data-mode="0">Multiplication</div>
+				<div class="mode gray" data-mode="1">Addition</div>
+				<div class="mode gray" data-mode="2">Subtraction</div>
+			</div>
+			<div class="modes">
+				<div class="difficulty" data-mode="0">Easy</div>
+				<div class="difficulty gray" data-mode="1">Difficult</div>
+				<div class="difficulty gray" data-mode="2">Cero Miedo</div>
+			</div>
+		</div>
+	</div>
+	<div class="center">
+		<div class="streak">Score: 0</div>
+		<h1 class="question">6 * 7</h1>
+		<div class="answer-container">
+			<div class="sign hidden hidden-sign">-</div>
+			<div class="answer gray">
+				Answer here...
+			</div>
+			<div class="throbber hidden"></div>
+		</div>
+	</div>
+</body>
+</html>
