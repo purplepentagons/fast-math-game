@@ -1,53 +1,6 @@
-import { updateQuestion, updateScore } from "./input.js";
+globalThis.questionTypes = [ 0 ];
 
-let questionTypes = [ 0 ];
-
-let questionDifficulty = 0;
-
-export function addButtonListeners() {
-	let difficulties = document.querySelectorAll(".difficulty");
-	let types = document.querySelectorAll(".mode");
-
-	for (let type of types) {
-		type.onclick = () => {
-			if (questionTypes.length == 1 && type.getAttribute("data-mode") == questionTypes[0] ) {
-				return;
-			}
-			
-			let mode = Number(type.getAttribute("data-mode"))
-			type.classList.toggle("gray")
-
-			if (questionTypes.includes(mode)) {
-				questionTypes = questionTypes.filter((n) => n != mode);
-			} else {
-				questionTypes = questionTypes.concat(mode);
-			}
-			
-			globalThis.score = 0;
-			updateScore(score);
-
-			globalThis.question = makeQuestion();
-			updateQuestion(globalThis.question);
-		}
-	};
-
-	for (let difficulty of difficulties) {
-		difficulty.onclick = () => {
-			for (let e of difficulties) {
-				e.classList.add("gray")
-			}
-			difficulty.classList.remove("gray")
-
-			questionDifficulty = Number(difficulty.getAttribute("data-mode"))
-
-			globalThis.score = 0;
-			updateScore(score);
-
-			globalThis.question = makeQuestion();
-			updateQuestion(globalThis.question);
-		}
-	};
-}
+globalThis.questionDifficulty = 0;
 
 export function makeQuestion() {
 	let questionFunctions = [
@@ -56,14 +9,14 @@ export function makeQuestion() {
 		subtractionQuestion
 	];
 
-	let chosenFunctions = [];
+	let chosenQuestionTypes = [];
 	
 	for (let type of questionTypes) {
-		chosenFunctions = chosenFunctions.concat(questionFunctions[type]);
+		chosenQuestionTypes = chosenQuestionTypes.concat(questionFunctions[type]);
 	}
 
-	let chosenFunction = chosenFunctions[
-		Math.floor(Math.random()*chosenFunctions.length)
+	let chosenFunction = chosenQuestionTypes[
+		Math.floor(Math.random()*chosenQuestionTypes.length)
 	];
 
 	return chosenFunction(questionDifficulty)
@@ -73,9 +26,13 @@ function randomRoundNumber(magnitude) {
 	return Math.round(Math.random()*Math.pow(10, magnitude));
 }
 
+function randomSign() {
+	return 1 - 2*Math.floor(Math.random()*2)
+}
+
 function multiplicationQuestion(difficulty) {
-	let number1 = Math.pow(10, difficulty+1) - 2*randomRoundNumber(difficulty+1);
-	let number2 = Math.pow(10, difficulty+1) - 2*randomRoundNumber(difficulty+1);
+	let number1 = randomRoundNumber(difficulty+1)*randomSign();
+	let number2 = randomRoundNumber(difficulty+1)*randomSign();
 
 	return {
 		display: `${number1} * ${number2}`,
