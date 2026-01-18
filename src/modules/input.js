@@ -53,8 +53,6 @@ export function takeInput() {
 		if (keyCode == "Minus") {
 			isNegative = !isNegative;
 
-			console.log(isNegative);
-
 			minusElement.classList.toggle("hidden-sign");
 		}
 
@@ -94,11 +92,20 @@ export function takeInput() {
 export function updateQuestion(question) {
 	let questionElement = document.querySelector(".question");
 
+	questionElement.animate(
+		{color: ["#CCF0", "#CCF"]},250
+	)
+
 	questionElement.textContent = question.display;
 }
 
 export function updateScore(score) {
 	let streakElement = document.querySelector(".streak");
+
+	streakElement.animate(
+		{color: ["#AFA", "#CCF"]},250
+	)
+
 
 	streakElement.textContent = `Score: ${globalThis.score}`;
 }

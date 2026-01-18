@@ -2,7 +2,7 @@ import { updateQuestion, updateScore } from "./input.js";
 
 let questionTypes = [ 0 ];
 
-let questionDifficulty = [ 0 ];
+let questionDifficulty = 0;
 
 export function addButtonListeners() {
 	let difficulties = document.querySelectorAll(".difficulty");

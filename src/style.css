@@ -79,8 +79,7 @@ h1, .answer-container, .bar div, .modes, .streak {
 }
 
 .modes div:hover {
-	color: var(--text-color);
-	opacity: 0.8;
+	opacity: 0.7;
 }
 
 .bars {
