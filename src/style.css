@@ -140,6 +140,7 @@ h1, .answer-container, .bar div, .modes, .streak {
 }
 
 .progress {
+	border-radius: 5px;
 	width: 100%;
 	height: 100%;
 	background-color: #AFA;

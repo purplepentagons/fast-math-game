@@ -59,3 +59,31 @@ function subtractionQuestion(difficulty) {
 		answer: number1 - number2
 	}
 }
+
+export function updateQuestion() {
+	let questionElement = document.querySelector(".question");
+	let barElement = document.querySelector(".progress");
+
+	questionElement.animate(
+		{color: ["#CCF0", "#CCF"]},125
+	)
+
+	barElement.animate(
+		{width: ["0%", "100%"]},questionTimeMs
+	)
+
+	questionElement.textContent = question.display;
+}
+
+export function updateScore() {
+	let streakElement = document.querySelector(".streak");
+
+	if (score != 0) {
+		streakElement.animate(
+			{color: ["#AFA", "#CCF"]},250
+		)
+	}
+
+	streakElement.textContent = `Score: ${score}`;
+}
+

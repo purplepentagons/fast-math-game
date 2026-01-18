@@ -1,5 +1,4 @@
-import { updateQuestion, updateScore } from "./input.js";
-import { makeQuestion } from "./questions.js";
+import { makeQuestion, updateQuestion, updateScore } from "./questions.js";
 
 export function addButtonListeners() {
 	let difficulties = document.querySelectorAll(".difficulty");

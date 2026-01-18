@@ -1,4 +1,4 @@
-import { takeInput } from "./modules/input.js";
+import { takeInput } from "./modules/logic.js";
 import { addButtonListeners } from "./modules/buttons.js";
 
 document.addEventListener("DOMContentLoaded", () => {
