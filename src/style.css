@@ -57,7 +57,7 @@ h1 {
 	display: flex;
 }
 
-h1, .answer-container, .bar div, .modes, .streak {
+.ui {
 	box-sizing: content-box;
 	border-radius: 8px;
 	padding: 0.5em;
@@ -68,6 +68,8 @@ h1, .answer-container, .bar div, .modes, .streak {
 	display: flex; 
 	font-size: 1.5rem;
 	margin-top: 1em;
+	gap: 1.5rem;
+	padding: 1em;
 }
 
 .modes div {
@@ -90,7 +92,7 @@ h1, .answer-container, .bar div, .modes, .streak {
 }
 
 .gray {
-	color: #555;
+	color: #559;
 }
 
 .gray.answer {
@@ -115,11 +117,11 @@ h1, .answer-container, .bar div, .modes, .streak {
 
 @keyframes gray-throb {
 	0% {
-		color: #555;
+		color: #559;
 	}
 
 	100% {
-		color: #333;
+		color: #336;
 	}
 }
 
@@ -128,7 +130,7 @@ h1, .answer-container, .bar div, .modes, .streak {
 	display: none;
 }
 
-.streak {
+.score {
 	font-size: 2rem;
 }
 
@@ -141,7 +143,35 @@ h1, .answer-container, .bar div, .modes, .streak {
 
 .progress {
 	border-radius: 5px;
-	width: 100%;
+	width: 0%;
 	height: 100%;
 	background-color: #AFA;
+}
+
+.stats {
+	flex-direction: column
+}
+
+.stats-container {
+	flex-direction: row;
+	display: flex;
+	gap: 1rem
+}
+
+.stats-container div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 0.5rem;
+	font-size: 1.5rem;
+}
+
+.stats-container .title {
+	font-size: 3rem;
+}
+
+.restart {
+	font-size: 2rem;
+	cursor: pointer;
 }

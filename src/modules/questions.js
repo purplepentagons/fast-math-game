@@ -1,6 +1,7 @@
 globalThis.questionTypes = [ 0 ];
-
 globalThis.questionDifficulty = 0;
+globalThis.questionMode = 0;
+globalThis.questionModeType = "Free";
 
 export function makeQuestion() {
 	let questionFunctions = [
@@ -62,28 +63,21 @@ function subtractionQuestion(difficulty) {
 
 export function updateQuestion() {
 	let questionElement = document.querySelector(".question");
-	let barElement = document.querySelector(".progress");
 
 	questionElement.animate(
 		{color: ["#CCF0", "#CCF"]},125
 	)
 
-	barElement.animate(
-		{width: ["0%", "100%"]},questionTimeMs
-	)
-
 	questionElement.textContent = question.display;
 }
 
-export function updateScore() {
-	let streakElement = document.querySelector(".streak");
+export function animateProgressBar(ms) {
+	let barElement = document.querySelector(".progress");
 
-	if (score != 0) {
-		streakElement.animate(
-			{color: ["#AFA", "#CCF"]},250
-		)
-	}
-
-	streakElement.textContent = `Score: ${score}`;
+	barElement.animate(
+		{width: ["0%", "100%"]}, {
+			duration: ms,
+			fill: "forwards"
+		}
+	);
 }
-

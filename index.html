@@ -10,28 +10,40 @@
 	<script src="./src/main.js" type="module"></script>
 	<div class="bars">
 		<div class="bar">
-			<div><a href="https://github.com/purplepentagons/fast-math-game" target="_blank">GitHub</a></div>
-			<div><a href="https://purplepentagons.github.io/">Back to Homepage</a></div>
+			<div class="ui"><a href="https://github.com/purplepentagons/fast-math-game" target="_blank">GitHub</a></div>
+			<div class="ui"><a href="https://purplepentagons.github.io/">Back to Homepage</a></div>
 
 			<!-- <div>Records</div> -->
 		</div>
 		<div class="bar">
-			<div class="modes">
-				<div class="mode" data-mode="0">Multiplication</div>
-				<div class="mode gray" data-mode="1">Addition</div>
-				<div class="mode gray" data-mode="2">Subtraction</div>
+			<div class="modes ui">
+				<div class="type" data-mode="0">Multiplication</div>
+				<div class="type gray" data-mode="1">Addition</div>
+				<div class="type gray" data-mode="2">Subtraction</div>
 			</div>
-			<div class="modes">
+			<div class="modes ui">
 				<div class="difficulty" data-mode="0">Easy</div>
 				<div class="difficulty gray" data-mode="1">Difficult</div>
 				<div class="difficulty gray" data-mode="2">Cero Miedo</div>
 			</div>
 		</div>
+		<div class="bar">
+			<div class="modes ui">
+				<div class="mode" data-mode="0">Freedom</div>
+				<div class="mode gray" data-mode="1">Timed</div>
+				<div class="mode gray" data-mode="2">Consecutive</div>
+				<div class="mode gray" data-mode="3">Endurance</div>
+			</div>
+			<div class="modes mode-types ui">
+				<div class="mode-type" data-mode="Free">Free</div>
+				<div class="mode-type gray" data-mode="Timed">Timed</div>
+			</div>
+		</div>
 	</div>
-	<div class="center">
-		<div class="streak">Score: 0</div>
-		<h1 class="question">6 * 7</h1>
-		<div class="answer-container">
+	<div class="center game" data-screen="0">
+		<div class="score ui">Questions Answered: 0</div>
+		<h1 class="question ui">6 * 7</h1>
+		<div class="answer-container ui">
 			<div class="answer gray">
 				Answer here...
 			</div>
@@ -40,6 +52,30 @@
 		<div class="progress-bar">
 			<div class="progress"></div>
 		</div>
+	</div>
+	<div class="center stats hidden" data-screen="1">
+		<div class="stats-container">
+			<div class="ui">
+				<div class="title">Score</div>
+				<div class="title-score">0</div>
+			</div>
+			
+			<div class="ui">
+				<div class="title">Questions</div>
+				<div class="title-questions">Multiplication Addition Subtraction</div>
+			</div>
+		</div>
+		<div class="stats-container"> 
+			<div class="ui">
+				<div class="title">Mode</div>
+				<div class="title-mode">Timed 15</div>
+			</div>
+			<div class="ui">
+				<div class="title">Difficulty</div>
+				<div class="title-difficulty">Cero Miedo</div>
+			</div>
+		</div>
+		<div class="restart ui">Retry</div>
 	</div>
 </body>
 </html>

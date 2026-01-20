@@ -1,7 +1,9 @@
-import { takeInput } from "./modules/logic.js";
+import { addKeyListener, startGame } from "./modules/logic.js";
 import { addButtonListeners } from "./modules/buttons.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-	takeInput();
+	addKeyListener();
 	addButtonListeners();
+
+	startGame();
 });
