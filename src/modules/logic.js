@@ -19,7 +19,7 @@ globalThis.questionTimeMs = 10000;
 // for consecutive mode
 globalThis.questionsToAnswer = 0;
 // for endurance mode
-globalThis.enduranceTimeoutID = 0;
+globalThis.timeoutID = 0;
 
 const answerElement = document.querySelector(".answer");
 const throbber = document.querySelector(".throbber");
@@ -133,14 +133,14 @@ function checkAnswer() {
 		}
 		
 		if (questionMode == 3) {
-			clearTimeout(enduranceTimeoutID);
+			clearTimeout(timeoutID);
 			setEnduranceTimeout();
 		}
 	}	
 }
 
 function setEnduranceTimeout() {
-	enduranceTimeoutID = setTimeout(() => {
+	timeoutID = setTimeout(() => {
 		endGame();
 	}, questionTimeMs);
 }
@@ -219,7 +219,7 @@ function unpauseGame() {
 
 	if (questionMode == 1) {
 		animateProgressBar(questionModeType*1000);
-		setTimeout(() => {
+		timeoutID = setTimeout(() => {
 			endGame();
 		}, questionModeType*1000);
 	} else if (questionMode == 3) {
@@ -233,6 +233,8 @@ export function startGame() {
 	/* probably shouldn't drop the player into the fire immediately */
 	/* i would like to add a feature that starts the timer as soon as the player begins typing */
 	currentTime = Date.now();
+
+	clearTimeout(timeoutID);
 
 	gameStarted = false;
 
