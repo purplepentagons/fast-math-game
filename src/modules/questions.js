@@ -1,18 +1,18 @@
-globalThis.questionTypes = [ 0 ];
-globalThis.questionDifficulty = 0;
-globalThis.questionMode = 0;
-globalThis.questionModeType = "Free";
+globalThis.game.questionTypes = [ 0 ];
+globalThis.game.questionDifficulty = 0;
+globalThis.game.questionMode = 0;
+globalThis.game.questionModeType = "Free";
 
-export function makeQuestion() {
+game.makeQuestion = function() {
 	let questionFunctions = [
-		multiplicationQuestion,
-		additionQuestion,
-		subtractionQuestion
+		game.multiplicationQuestion,
+		game.additionQuestion,
+		game.subtractionQuestion
 	];
 
 	let chosenQuestionTypes = [];
 	
-	for (let type of questionTypes) {
+	for (let type of game.questionTypes) {
 		chosenQuestionTypes = chosenQuestionTypes.concat(questionFunctions[type]);
 	}
 
@@ -20,20 +20,20 @@ export function makeQuestion() {
 		Math.floor(Math.random()*chosenQuestionTypes.length)
 	];
 
-	return chosenFunction(questionDifficulty)
+	return chosenFunction(game.questionDifficulty)
 }	
 
-function randomRoundNumber(magnitude) {
+game.randomRoundNumber = function(magnitude) {
 	return Math.round(Math.random()*Math.pow(10, magnitude));
 }
 
-function randomSign() {
+game.randomSign = function() {
 	return 1 - 2*Math.floor(Math.random()*2)
 }
 
-function multiplicationQuestion(difficulty) {
-	let number1 = randomRoundNumber(difficulty+1)*randomSign();
-	let number2 = randomRoundNumber(difficulty+1)*randomSign();
+game.multiplicationQuestion = function(difficulty) {
+	let number1 = game.randomRoundNumber(difficulty+1)*game.randomSign();
+	let number2 = game.randomRoundNumber(difficulty+1)*game.randomSign();
 
 	return {
 		display: `${number1} * ${number2}`,
@@ -41,7 +41,7 @@ function multiplicationQuestion(difficulty) {
 	}
 }
 
-function additionQuestion(difficulty) {
+game.additionQuestion = function(difficulty) {
 	let number1 = randomRoundNumber(2 * difficulty + 2);
 	let number2 = randomRoundNumber(2 * difficulty + 2);
 
@@ -51,7 +51,7 @@ function additionQuestion(difficulty) {
 	}
 }
 
-function subtractionQuestion(difficulty) {
+game.subtractionQuestion = function(difficulty) {
 	let number1 = randomRoundNumber(2 * difficulty + 2);
 	let number2 = randomRoundNumber(2 * difficulty + 2);
 
@@ -61,17 +61,17 @@ function subtractionQuestion(difficulty) {
 	}
 }
 
-export function updateQuestion() {
+game.updateQuestion = function() {
 	let questionElement = document.querySelector(".question");
 
 	questionElement.animate(
 		{color: ["#CCF0", "#CCF"]},125
 	)
 
-	questionElement.textContent = question.display;
+	questionElement.textContent = game.question.display;
 }
 
-export function animateProgressBar(ms) {
+game.animateProgressBar = function(ms) {
 	let barElement = document.querySelector(".progress");
 
 	barElement.animate(

@@ -1,27 +1,24 @@
-import { makeQuestion, updateQuestion } from "./questions.js";
-import { endGame, startGame, updateScore } from "./logic.js";
-
-export function addButtonListeners() {
-	addDifficultyListeners();
-	addModeTypeListeners();
-	addTypeListeners();
-	addModeListeners();
+game.addButtonListeners = function() {
+	game.addDifficultyListeners();
+	game.addModeTypeListeners();
+	game.addTypeListeners();
+	game.addModeListeners();
 
 	let retryButton = document.querySelector(".restart");
 
 	retryButton.onclick = () => {
-		startGame();
+		game.startGame();
 	}
 }
 
-function mutuallyExcludeButtons(button, buttonList) {
+game.mutuallyExcludeButtons = function(button, buttonList) {
 	for (let e of buttonList) {
 		e.classList.add("gray")
 	}
 	button.classList.remove("gray")
 }
 
-function updateModeTypes(mode) {
+game.updateModeTypes = function() {
 	let modeTypes = document.querySelectorAll(".mode-type");
 
 	function replaceModeTypes(values) {
@@ -48,114 +45,114 @@ function updateModeTypes(mode) {
 			modeTypesParent.append(newModeType);
 		}
 
-		addModeTypeListeners();
+		game.addModeTypeListeners();
 
 		document.querySelector(".mode-type").classList.remove("gray");
 	}
 
 	// i would use a switch statement inside the function's arguments but this isn't Rust
-	switch (questionMode) {
+	switch (game.questionMode) {
 		case 0: {
-			replaceModeTypes(["Free", "Timed"])
-			questionModeType = "Free";
+			replaceModeTypes(["Free", "Timed"]);
+			game.questionModeType = "Free";
 			break;
 		}
 
 		case 1: {
-			replaceModeTypes([10, 30, 60])
-			questionModeType = 10;
+			replaceModeTypes([10, 30, 60]);
+			game.questionModeType = 10;
 			break;
 		}
 
 		case 2: {
-			replaceModeTypes([10, 25, 50, 100])
-			questionModeType = 10;
+			replaceModeTypes([10, 25, 50, 100]);
+			game.questionModeType = 10;
 			break;
 		}
 
 		case 3: {
-			replaceModeTypes([-0.5, -1, -2])
-			questionModeType = -0.5;
+			replaceModeTypes([-0.5, -1, -2]);
+			game.questionModeType = -0.5;
 			break;
 		}
 	}
 }
 
-function addTypeListeners() {
+game.addTypeListeners = function() {
 	let types = document.querySelectorAll(".type");
 
 	for (let type of types) {
 		type.onclick = () => {
-			if (questionTypes.length == 1 && type.getAttribute("data-mode") == questionTypes[0] ) {
+			if (game.questionTypes.length == 1 && type.getAttribute("data-mode") == game.questionTypes[0] ) {
 				return;
 			}
 			
 			let mode = Number(type.getAttribute("data-mode"))
 			type.classList.toggle("gray")
 
-			if (questionTypes.includes(mode)) {
-				questionTypes = questionTypes.filter((n) => n != mode);
+			if (game.questionTypes.includes(mode)) {
+				game.questionTypes = game.questionTypes.filter((n) => n != mode);
 			} else {
-				questionTypes = questionTypes.concat(mode);
+				game.questionTypes = game.questionTypes.concat(mode);
 			}
 			
-			startGame();
+			game.startGame();
 
-			question = makeQuestion();
-			updateQuestion();
+			game.question = game.makeQuestion();
+			game.updateQuestion();
 		}
 	};
 }
 
-function addDifficultyListeners() {
+game.addDifficultyListeners = function() {
 	let difficulties = document.querySelectorAll(".difficulty");
 
 	for (let difficulty of difficulties) {
 		difficulty.onclick = () => {
-			mutuallyExcludeButtons(difficulty, difficulties)
+			game.mutuallyExcludeButtons(difficulty, difficulties)
 
-			questionDifficulty = Number(difficulty.getAttribute("data-mode"))
+			game.questionDifficulty = Number(difficulty.getAttribute("data-mode"))
 
-			startGame();
+			game.startGame();
 
-			question = makeQuestion();
-			updateQuestion();
+			game.question = game.makeQuestion();
+			game.updateQuestion();
 		}
 	};
 }
 
-function addModeListeners() {
+game.addModeListeners = function() {
 	let modes = document.querySelectorAll(".mode");
 
 	for (let mode of modes) {
 		mode.onclick = () => {
-			mutuallyExcludeButtons(mode, modes)
+			game.mutuallyExcludeButtons(mode, modes)
 
-			questionMode = Number(mode.getAttribute("data-mode"))
+			game.questionMode = Number(mode.getAttribute("data-mode"))
 
-			updateModeTypes(mode);
+			game.updateModeTypes(mode);
 
-			startGame();
+			game.startGame();
 
-			question = makeQuestion();
-			updateQuestion();
+			game.question = game.makeQuestion();
+			game.updateQuestion();
 		}
 	};
 }
 
-function addModeTypeListeners() {
+game.addModeTypeListeners = function() {
 	let modeTypes = document.querySelectorAll(".mode-type");
 
 	for (let m of modeTypes) {
 		m.onclick = () => {
-			mutuallyExcludeButtons(m, modeTypes)
+			game.mutuallyExcludeButtons(m, modeTypes)
 
-			questionModeType = m.getAttribute("data-mode");
+			game.questionModeType = m.getAttribute("data-mode");
 
-			question = makeQuestion();
-			updateQuestion();
+			game.question = game.makeQuestion();
+			game.updateQuestion();
 			
-			startGame();
+			game.startGame();
 		}
 	};
 }
