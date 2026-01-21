@@ -114,6 +114,10 @@ function resetSign() {
 }
 
 function checkAnswer() {
+	if (answer === "") {
+		return;
+	}
+
 	let answerIsCorrect = ((1 - 2 * Number(isNegative)) * answer) == question.answer;
 
 	if ( answerIsCorrect ) {
