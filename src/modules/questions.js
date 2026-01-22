@@ -70,14 +70,3 @@ game.updateQuestion = function() {
 
 	questionElement.textContent = game.question.display;
 }
-
-game.animateProgressBar = function(ms) {
-	let barElement = document.querySelector(".progress");
-
-	barElement.animate(
-		{width: ["0%", "100%"]}, {
-			duration: ms,
-			fill: "forwards"
-		}
-	);
-}
