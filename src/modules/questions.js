@@ -1,7 +1,9 @@
-globalThis.game.questionTypes = [ 0 ];
-globalThis.game.questionDifficulty = 0;
-globalThis.game.questionMode = 0;
-globalThis.game.questionModeType = "Free";
+globalThis.game.mode = {
+	questions: [ 0 ],
+	difficulty: 0,
+	mode: 0,
+	modeDifficulty: 0
+}
 
 game.makeQuestion = function() {
 	let questionFunctions = [
@@ -12,7 +14,7 @@ game.makeQuestion = function() {
 
 	let chosenQuestionTypes = [];
 	
-	for (let type of game.questionTypes) {
+	for (let type of game.mode.questions) {
 		chosenQuestionTypes = chosenQuestionTypes.concat(questionFunctions[type]);
 	}
 
@@ -20,7 +22,7 @@ game.makeQuestion = function() {
 		Math.floor(Math.random()*chosenQuestionTypes.length)
 	];
 
-	return chosenFunction(game.questionDifficulty)
+	return chosenFunction(game.mode.difficulty)
 }	
 
 game.randomRoundNumber = function(magnitude) {
@@ -42,8 +44,8 @@ game.multiplicationQuestion = function(difficulty) {
 }
 
 game.additionQuestion = function(difficulty) {
-	let number1 = randomRoundNumber(2 * difficulty + 2);
-	let number2 = randomRoundNumber(2 * difficulty + 2);
+	let number1 = game.randomRoundNumber(2 * difficulty + 2);
+	let number2 = game.randomRoundNumber(2 * difficulty + 2);
 
 	return {
 		display: `${number1} + ${number2}`,
@@ -52,8 +54,8 @@ game.additionQuestion = function(difficulty) {
 }
 
 game.subtractionQuestion = function(difficulty) {
-	let number1 = randomRoundNumber(2 * difficulty + 2);
-	let number2 = randomRoundNumber(2 * difficulty + 2);
+	let number1 = game.randomRoundNumber(2 * difficulty + 2);
+	let number2 = game.randomRoundNumber(2 * difficulty + 2);
 
 	return {
 		display: `${number1} - ${number2}`,

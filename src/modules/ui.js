@@ -17,7 +17,7 @@ game.endGame = function() {
 	
 	let questionTypesTitle = "";
 
-	for (let t of game.questionTypes) {
+	for (let t of game.mode.questions) {
 		questionTypesTitle = questionTypesTitle.concat(["Multiplication", "Addition", "Subtraction"][t]);
 	}
 
@@ -28,12 +28,12 @@ game.endGame = function() {
 		"Timed",
 		"Consecutive",
 		"Endurance"
-	][game.questionMode] + " " + game.questionModeType.toString();
+	][game.mode.mode] + " " + game.mode.modeDifficulty.toString();
 	difficultyTitleElement.textContent = [
 		"Easy",
 		"Difficult",
 		"Cero Miedo"
-	][game.questionDifficulty];  
+	][game.mode.difficulty];  
 
 	game.displayScreen(1);
 }
@@ -47,12 +47,12 @@ game.startGame = function() {
 
 	game.gameStarted = false;
 
-	switch(game.questionMode) {
+	switch(game.mode.mode) {
 			case 0: {
-				if (game.questionModeType == "Free") {
+				if (game.mode.modeDifficulty == "Free") {
 					game.questionTimeMs = 1e+20;
 					game.scoreNoun = "Questions Answered"
-				} else if (game.questionModeType == "Timed") {
+				} else if (game.mode.modeDifficulty == "Timed") {
 					game.questionTimeMs = 10000;
 					game.scoreNoun = "Score"
 				}
@@ -60,7 +60,7 @@ game.startGame = function() {
 			}
 
 			case 1: {
-				game.questionTimeMs = game.questionModeType*1000;
+				game.questionTimeMs = game.mode.modeDifficulty*1000;
 				game.scoreNoun = "Score"
 				break;
 			}
@@ -68,7 +68,7 @@ game.startGame = function() {
 			case 2: {
 				game.questionTimeMs = 10000;
 				game.scoreNoun = "Score"
-				game.questionsToAnswer = game.questionModeType;
+				game.questionsToAnswer = game.mode.modeDifficulty;
 				break;
 			}
 
@@ -106,12 +106,12 @@ game.displayScreen = function(screen) {
 game.unpauseGame = function() {
 	game.currentTime = Date.now();
 
-	if (game.questionMode == 1) {
-		game.animateProgressBar(game.questionModeType*1000);
+	if (game.mode.mode == 1) {
+		game.animateProgressBar(game.mode.modeDifficulty*1000);
 		game.timeoutID = setTimeout(() => {
 			game.endGame();
-		}, game.questionModeType*1000);
-	} else if (game.questionMode == 3) {
+		}, game.mode.modeDifficulty*1000);
+	} else if (game.mode.mode == 3) {
 		game.setEnduranceTimeout();
 	}
 

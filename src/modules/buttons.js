@@ -1,6 +1,6 @@
 game.addButtonListeners = function() {
 	game.addDifficultyListeners();
-	game.addModeTypeListeners();
+	game.addModeDifficultyListeners();
 	game.addTypeListeners();
 	game.addModeListeners();
 
@@ -18,82 +18,82 @@ game.mutuallyExcludeButtons = function(button, buttonList) {
 	button.classList.remove("gray")
 }
 
-game.updateModeTypes = function() {
-	let modeTypes = document.querySelectorAll(".mode-type");
+game.updateModeDifficulties = function() {
+	let modeDifficultyButtons = document.querySelectorAll(".mode-difficulty");
 
-	function replaceModeTypes(values) {
-		let modeTypesParent = document.querySelector(".mode-types");
+	function replaceModeDifficulties(values) {
+		let modeDifficultiesParent = document.querySelector(".mode-difficulties");
 		
 		if (values.length == 0) {
-			modeTypesParent.classList.add("hidden");
+			modeDifficultiesParent.classList.add("hidden");
 			return;
 		} else {
-			modeTypesParent.classList.remove("hidden");
+			modeDifficultiesParent.classList.remove("hidden");
 		}
 
-		for (let modeType of modeTypes) {
+		for (let modeType of modeDifficultyButtons) {
 			modeType.remove();
 		}
 
 		for (let value of values) {
-			const newModeType = document.createElement("div");
-			newModeType.classList.add("mode-type")
-			newModeType.classList.add("gray")
-			newModeType.setAttribute("data-mode", value)
-			newModeType.textContent = value;
+			const newModeDifficulty = document.createElement("div");
+			newModeDifficulty.classList.add("mode-difficulty")
+			newModeDifficulty.classList.add("gray")
+			newModeDifficulty.setAttribute("data-mode", value)
+			newModeDifficulty.textContent = value;
 
-			modeTypesParent.append(newModeType);
+			modeDifficultiesParent.append(newModeDifficulty);
 		}
 
-		game.addModeTypeListeners();
+		game.addModeDifficultyListeners();
 
-		document.querySelector(".mode-type").classList.remove("gray");
+		document.querySelector(".mode-difficulty").classList.remove("gray");
 	}
 
 	// i would use a switch statement inside the function's arguments but this isn't Rust
-	switch (game.questionMode) {
+	switch (game.mode.mode) {
 		case 0: {
-			replaceModeTypes(["Free", "Timed"]);
-			game.questionModeType = "Free";
+			replaceModeDifficulties(["Free", "Timed"]);
+			game.mode.modeDifficulty = "Free";
 			break;
 		}
 
 		case 1: {
-			replaceModeTypes([10, 30, 60]);
-			game.questionModeType = 10;
+			replaceModeDifficulties([10, 30, 60]);
+			game.mode.modeDifficulty = 10;
 			break;
 		}
 
 		case 2: {
-			replaceModeTypes([10, 25, 50, 100]);
-			game.questionModeType = 10;
+			replaceModeDifficulties([10, 25, 50, 100]);
+			game.mode.modeDifficulty = 10;
 			break;
 		}
 
 		case 3: {
-			replaceModeTypes([-0.5, -1, -2]);
-			game.questionModeType = -0.5;
+			replaceModeDifficulties([-0.5, -1, -2]);
+			game.mode.modeDifficulty = -0.5;
 			break;
 		}
 	}
 }
 
 game.addTypeListeners = function() {
-	let types = document.querySelectorAll(".type");
+	let typeButtons = document.querySelectorAll(".type");
 
-	for (let type of types) {
-		type.onclick = () => {
-			if (game.questionTypes.length == 1 && type.getAttribute("data-mode") == game.questionTypes[0] ) {
+	for (let tb of typeButtons) {
+		tb.onclick = () => {
+			if (game.mode.questions.length == 1 && tb.getAttribute("data-mode") == game.mode.questions[0] ) {
 				return;
 			}
 			
-			let mode = Number(type.getAttribute("data-mode"))
-			type.classList.toggle("gray")
+			let mode = Number(tb.getAttribute("data-mode"))
+			tb.classList.toggle("gray")
 
-			if (game.questionTypes.includes(mode)) {
-				game.questionTypes = game.questionTypes.filter((n) => n != mode);
+			if (game.mode.questions.includes(mode)) {
+				game.mode.questions = game.mode.questions.filter((n) => n != mode);
 			} else {
-				game.questionTypes = game.questionTypes.concat(mode);
+				game.mode.questions = game.mode.questions.concat(mode);
 			}
 			
 			game.startGame();
@@ -105,13 +105,13 @@ game.addTypeListeners = function() {
 }
 
 game.addDifficultyListeners = function() {
-	let difficulties = document.querySelectorAll(".difficulty");
+	let difficultyButtons = document.querySelectorAll(".difficulty");
 
-	for (let difficulty of difficulties) {
-		difficulty.onclick = () => {
-			game.mutuallyExcludeButtons(difficulty, difficulties)
+	for (let db of difficultyButtons) {
+		db.onclick = () => {
+			game.mutuallyExcludeButtons(db, difficultyButtons)
 
-			game.questionDifficulty = Number(difficulty.getAttribute("data-mode"))
+			game.mode.difficulty = Number(db.getAttribute("data-mode"))
 
 			game.startGame();
 
@@ -122,15 +122,15 @@ game.addDifficultyListeners = function() {
 }
 
 game.addModeListeners = function() {
-	let modes = document.querySelectorAll(".mode");
+	let modeButtons = document.querySelectorAll(".mode");
 
-	for (let mode of modes) {
-		mode.onclick = () => {
-			game.mutuallyExcludeButtons(mode, modes)
+	for (let mb of modeButtons) {
+		mb.onclick = () => {
+			game.mutuallyExcludeButtons(mb, modeButtons)
 
-			game.questionMode = Number(mode.getAttribute("data-mode"))
+			game.mode.mode = Number(mb.getAttribute("data-mode"))
 
-			game.updateModeTypes(mode);
+			game.updateModeDifficulties(mb);
 
 			game.startGame();
 
@@ -140,14 +140,14 @@ game.addModeListeners = function() {
 	};
 }
 
-game.addModeTypeListeners = function() {
-	let modeTypes = document.querySelectorAll(".mode-type");
+game.addModeDifficultyListeners = function() {
+	let modeDifficultyButtons = document.querySelectorAll(".mode-difficulty");
 
-	for (let m of modeTypes) {
-		m.onclick = () => {
-			game.mutuallyExcludeButtons(m, modeTypes)
+	for (let mdb of modeDifficultyButtons) {
+		mdb.onclick = () => {
+			game.mutuallyExcludeButtons(mdb, modeDifficultyButtons)
 
-			game.questionModeType = m.getAttribute("data-mode");
+			game.mode.modeDifficulty = mdb.getAttribute("data-mode");
 
 			game.question = game.makeQuestion();
 			game.updateQuestion();
