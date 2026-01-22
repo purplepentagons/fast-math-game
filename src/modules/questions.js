@@ -1,4 +1,4 @@
-globalThis.game.mode = {
+globalThis.game.settings = {
 	questions: [ 0 ],
 	difficulty: 0,
 	mode: 0,
@@ -14,7 +14,7 @@ game.makeQuestion = function() {
 
 	let chosenQuestionTypes = [];
 	
-	for (let type of game.mode.questions) {
+	for (let type of game.settings.questions) {
 		chosenQuestionTypes = chosenQuestionTypes.concat(questionFunctions[type]);
 	}
 
@@ -22,7 +22,7 @@ game.makeQuestion = function() {
 		Math.floor(Math.random()*chosenQuestionTypes.length)
 	];
 
-	return chosenFunction(game.mode.difficulty)
+	return chosenFunction(game.settings.difficulty)
 }	
 
 game.randomRoundNumber = function(magnitude) {

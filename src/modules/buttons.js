@@ -51,28 +51,28 @@ game.updateModeDifficulties = function() {
 	}
 
 	// i would use a switch statement inside the function's arguments but this isn't Rust
-	switch (game.mode.mode) {
+	switch (game.settings.mode) {
 		case 0: {
 			replaceModeDifficulties(["Free", "Timed"]);
-			game.mode.modeDifficulty = "Free";
+			game.settings.modeDifficulty = "Free";
 			break;
 		}
 
 		case 1: {
 			replaceModeDifficulties([10, 30, 60]);
-			game.mode.modeDifficulty = 10;
+			game.settings.modeDifficulty = 10;
 			break;
 		}
 
 		case 2: {
 			replaceModeDifficulties([10, 25, 50, 100]);
-			game.mode.modeDifficulty = 10;
+			game.settings.modeDifficulty = 10;
 			break;
 		}
 
 		case 3: {
 			replaceModeDifficulties([-0.5, -1, -2]);
-			game.mode.modeDifficulty = -0.5;
+			game.settings.modeDifficulty = -0.5;
 			break;
 		}
 	}
@@ -83,17 +83,17 @@ game.addTypeListeners = function() {
 
 	for (let tb of typeButtons) {
 		tb.onclick = () => {
-			if (game.mode.questions.length == 1 && tb.getAttribute("data-mode") == game.mode.questions[0] ) {
+			if (game.settings.questions.length == 1 && tb.getAttribute("data-mode") == game.settings.questions[0] ) {
 				return;
 			}
 			
 			let mode = Number(tb.getAttribute("data-mode"))
 			tb.classList.toggle("gray")
 
-			if (game.mode.questions.includes(mode)) {
-				game.mode.questions = game.mode.questions.filter((n) => n != mode);
+			if (game.settings.questions.includes(mode)) {
+				game.settings.questions = game.settings.questions.filter((n) => n != mode);
 			} else {
-				game.mode.questions = game.mode.questions.concat(mode);
+				game.settings.questions = game.settings.questions.concat(mode);
 			}
 			
 			game.startGame();
@@ -111,7 +111,7 @@ game.addDifficultyListeners = function() {
 		db.onclick = () => {
 			game.mutuallyExcludeButtons(db, difficultyButtons)
 
-			game.mode.difficulty = Number(db.getAttribute("data-mode"))
+			game.settings.difficulty = Number(db.getAttribute("data-mode"))
 
 			game.startGame();
 
@@ -128,7 +128,7 @@ game.addModeListeners = function() {
 		mb.onclick = () => {
 			game.mutuallyExcludeButtons(mb, modeButtons)
 
-			game.mode.mode = Number(mb.getAttribute("data-mode"))
+			game.settings.mode = Number(mb.getAttribute("data-mode"))
 
 			game.updateModeDifficulties(mb);
 
@@ -147,7 +147,7 @@ game.addModeDifficultyListeners = function() {
 		mdb.onclick = () => {
 			game.mutuallyExcludeButtons(mdb, modeDifficultyButtons)
 
-			game.mode.modeDifficulty = mdb.getAttribute("data-mode");
+			game.settings.modeDifficulty = mdb.getAttribute("data-mode");
 
 			game.question = game.makeQuestion();
 			game.updateQuestion();

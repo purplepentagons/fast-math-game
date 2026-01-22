@@ -136,11 +136,11 @@ game.checkAnswer = function() {
 
 		game.updateQuestion();
 
-		if (game.mode.mode != 1) {
+		if (game.settings.mode != 1) {
 			game.animateProgressBar(game.questionTimeMs);
 		}
 		
-		if (game.mode.mode == 3) {
+		if (game.settings.mode == 3) {
 			clearTimeout(game.timeoutID);
 			game.setEnduranceTimeout();
 		}
@@ -159,11 +159,11 @@ game.updateScore = function(answered) {
 	if (answered) {
 		const scoreEarned = Math.max(0, game.currentTime - Date.now() + game.questionTimeMs)
 		
-		switch(game.mode.mode) {
+		switch(game.settings.mode) {
 			case 0: {
-				if (game.mode.modeDifficulty == "Free") {
+				if (game.settings.modeDifficulty == "Free") {
 					game.score++;
-				} else if (game.mode.modeDifficulty == "Timed") {
+				} else if (game.settings.modeDifficulty == "Timed") {
 					game.score += scoreEarned;
 				}
 				break;
@@ -191,7 +191,7 @@ game.updateScore = function(answered) {
 				}
 				game.score++;
 				if (scoreEarned < (game.questionTimeMs / 2)) {
-					game.questionTimeMs += 1000*game.mode.modeDifficulty;
+					game.questionTimeMs += 1000*game.settings.modeDifficulty;
 				}
 				break;
 			}
